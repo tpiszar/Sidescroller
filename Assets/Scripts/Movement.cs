@@ -9,14 +9,18 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rig;
 
     public float speed = 50f;
+    public float airSpd = 25f;
     bool jump = false;
-    bool dashing = false;
+    public bool dashing = false;
     public float dashTime = .5f;
     float dashEnd;
     public float dashMod = 2f;
     public int dashDmg = 10;
     float move = 0f;
     float gravityScale = 3f;
+
+    public Animator anim;
+    public string blastAnim;
 
     void Start()
     {
@@ -25,6 +29,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        //Physics2D.Raycast(transform.position, -transform.up, 1);
         if (dashing && dashEnd < Time.time)
         {
             dashing = false;
@@ -46,10 +51,15 @@ public class Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+            if (controller.m_Grounded)
+            {
+                anim.Play(blastAnim);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetButtonDown("Dash"))
         {
             dashing = true;
+            anim.Play(blastAnim);
             health.TakeDamage(dashDmg);
             rig.velocity = new Vector2(0f, 0f);
             rig.gravityScale = 0f;
@@ -59,7 +69,15 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(move * speed * Time.deltaTime, jump);
+        if (controller.m_Grounded)
+        {
+            controller.Move(move * speed * Time.deltaTime, jump);
+        }
+        else
+        {
+            controller.Move(move * airSpd * Time.deltaTime, jump);
+        }
+
         jump = false;
     }
 }

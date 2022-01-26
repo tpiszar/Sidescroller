@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerHealth : MonoBehaviour
         {
             invulnerable = false;
         }
+        //if (health <= 0)
+        //{
+        //    SceneManager.LoadScene("Level1");
+        //}
     }
 
     public void TakeDamage(int dmg)

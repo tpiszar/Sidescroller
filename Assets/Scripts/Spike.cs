@@ -24,9 +24,6 @@ public class Spike : MonoBehaviour
             if (objVel > baseVel)
             {
                 dmg += (int)(objVel - baseVel) / extraDmg;
-                Debug.Log(objVel);
-                Debug.Log((objVel - baseVel) + " " + (int)(objVel - baseVel) + " " +(int)(objVel - baseVel) / extraDmg);
-                Debug.Log(dmg);
             }
             health.TakeDamage(dmg);
             health.invulnerable = true;
