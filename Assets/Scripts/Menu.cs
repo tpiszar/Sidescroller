@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
 {
     public GameObject main;
     public GameObject controls;
+    public GameObject credits;
 
     public void LoadLevel(string name)
     {
@@ -17,6 +18,19 @@ public class Menu : MonoBehaviour
     {
         main.SetActive(false);
         controls.SetActive(true);
+    }
+
+    public void Credits()
+    {
+        main.SetActive(false);
+        credits.SetActive(true);
+    }
+
+    public void Back()
+    {
+        credits.SetActive(false);
+        controls.SetActive(false);
+        main.SetActive(true);
     }
 
     public void Quit()
